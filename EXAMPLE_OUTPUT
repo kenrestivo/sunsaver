@@ -1,0 +1,606 @@
+Example output from sunsaver.c:
+
+RAM Registers
+
+adc_vb_f = 12.41 V
+adc_va_f = 25.74 V
+adc_vl_f = 12.40 V
+adc_ic_f = 1.28 A
+adc_il_f = 1.29 A
+T_hs = 14 °C
+T_batt = 9 °C
+T_amb = 13 °C
+T_rts = 9 °C
+charge_state = 5 BULK_CHARGE
+array_fault = Solar input self-diagnostic faults:
+	No faults
+Vb_f = 12.41 V
+Vb_ref = 14.39 V
+Ahc_r = 1688.80 Ah
+Ahc_t = 1688.80 Ah
+kWhc = 23.30 kWh
+load_state = 1 LOAD_ON
+load_fault = Load output self-diagnostic faults:
+	No faults
+V_lvd = 11.50 V
+Ahl_r = 1316.70 Ah
+Ahl_t = 1316.70 Ah
+hourmeter = 7458 h
+alarm = Controller self-diagnostic alarms:
+	No alarms
+dip_switch = DIP switch settings:
+	Switch 1 OFF - Battery Type: Sealed or Flooded
+	Switch 2 OFF - LVD = 11.50 V, LVR = 12.60 V
+	Switch 3 ON - Auto-Equalize On
+	Switch 4 ON - MODBUS Protocol
+led_state = 6 GREEN_LED
+Power_out = 15.87 W
+Sweep_Vmp = 25.77 V
+Sweep_Pmax = 17.36 W
+Sweep_Voc = 30.96 V
+Vb_min_daily = 12.36 V
+Vb_max_daily = 12.48 V
+Ahc_daily = 4.20 Ah
+Ahl_daily = 31.40 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+vb_min = 11.64 V
+vb_max = 15.05 V
+
+
+Example output from sunsaverEEPROM.c:
+
+EEPROM Registers
+
+Charge Settings (bank 1)
+EV_reg = 14.00 V
+EV_float = 13.70 V
+Et_float = 10800 s
+Et_floatlb = 14400 s
+EV_floatlb_trip = 12.50 V
+EV_float_cancel = 12.30 V
+Et_float_exit_cum = 3600 s
+EV_eq = 0.00 V
+Et_eqcalendar = 0 days
+Et_eq_above = 0 s
+Et_eq_reg = 0 s
+
+Charge Settings (bank 2)
+EV_reg2 = 14.30 V
+EV_float2 = 13.70 V
+Et_float2 = 10800 s
+Et_floatlb2 = 14400 s
+EV_floatlb_trip2 = 12.50 V
+EV_float_cancel2 = 12.30 V
+Et_float_exit_cum2 = 3600 s
+EV_eq2 = 14.50 V
+Et_eqcalendar2 = 28 days
+Et_eq_above2 = 14400 s
+Et_eq_reg2 = 10800 s
+
+Charge Settings (shared)
+EV_tempcomp = 0.03 V
+EV_hvd = 15.30 V
+EV_hvr = 13.80 V
+Evb_ref_lim = 15.00 V
+ETb_max = 80 °C
+ETb_min = -30 °C
+
+Load Settings
+EV_lvd = 11.00 V
+EV_lvr = 12.10 V
+EV_lhvd = 0.00 V
+EV_lhvr = 0.00 V
+ER_icomp = 0.01 ohms
+Et_lvd_warn = 240.00 s
+
+Misc Settings
+EV_soc_y2g = 13.10 V
+EV_soc_g2y = 12.10 V
+EV_soc_y2r0 = 11.70 V
+EV_soc_r2y = 12.60 V
+Emodbus_id = 1
+Emeter_id = 1
+
+PPT Settings
+Eic_lim = 0.00 A
+
+Read only section of EEPROM
+Ehourmeter = 7435 h
+EAhl_r = 1278.40 Ah
+EAhl_t = 1278.40 Ah
+EAhc_r = 1676.80 Ah
+EAhc_t = 1676.80 Ah
+EkWhc = 23.10 kWh
+EVb_min = 11.64 V
+EVb_max = 15.05 V
+EVa_max = 34.25 V
+Etmr_eqcalendar = 1 days
+
+
+Example output from sunsaverlog.c:
+
+Log Record: 0x8000
+
+hourmeter = 6934 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.17 V
+Vb_max_daily = 12.29 V
+Ahc_daily = 0.00 Ah
+Ahl_daily = 36.30 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 27.26 V
+
+Log Record: 0x8010
+
+hourmeter = 6958 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.14 V
+Vb_max_daily = 13.09 V
+Ahc_daily = 15.50 Ah
+Ahl_daily = 30.70 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 32.35 V
+
+Log Record: 0x8020
+
+hourmeter = 6982 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.12 V
+Vb_max_daily = 13.47 V
+Ahc_daily = 45.00 Ah
+Ahl_daily = 30.30 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.49 V
+
+Log Record: 0x8030
+
+hourmeter = 7006 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.33 V
+Vb_max_daily = 13.62 V
+Ahc_daily = 48.90 Ah
+Ahl_daily = 30.70 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.02 V
+
+Log Record: 0x8040
+
+hourmeter = 7030 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.33 V
+Vb_max_daily = 12.98 V
+Ahc_daily = 17.70 Ah
+Ahl_daily = 38.80 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.25 V
+
+Log Record: 0x8050
+
+hourmeter = 7054 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.14 V
+Vb_max_daily = 13.05 V
+Ahc_daily = 12.90 Ah
+Ahl_daily = 44.00 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 32.41 V
+
+Log Record: 0x8060
+
+hourmeter = 7079 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.06 V
+Vb_max_daily = 13.78 V
+Ahc_daily = 91.60 Ah
+Ahl_daily = 39.50 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 32.99 V
+
+Log Record: 0x8070
+
+hourmeter = 7103 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.41 V
+Vb_max_daily = 14.81 V
+Ahc_daily = 97.90 Ah
+Ahl_daily = 39.00 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 32.78 V
+
+Log Record: 0x8080
+
+hourmeter = 7127 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.44 V
+Vb_max_daily = 14.97 V
+Ahc_daily = 68.20 Ah
+Ahl_daily = 40.30 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.63 V
+
+Log Record: 0x8090
+
+hourmeter = 7151 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	RTS open
+Vb_min_daily = 12.37 V
+Vb_max_daily = 14.93 V
+Ahc_daily = 65.80 Ah
+Ahl_daily = 41.60 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	RTS was valid, now disconnected
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.88 V
+
+Log Record: 0x80A0
+
+hourmeter = 7175 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.33 V
+Vb_max_daily = 13.66 V
+Ahc_daily = 36.00 Ah
+Ahl_daily = 40.20 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 30.12 V
+
+Log Record: 0x80B0
+
+hourmeter = 7198 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.29 V
+Vb_max_daily = 14.47 V
+Ahc_daily = 45.50 Ah
+Ahl_daily = 40.00 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 30.46 V
+
+Log Record: 0x80C0
+
+hourmeter = 7223 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.33 V
+Vb_max_daily = 14.92 V
+Ahc_daily = 45.50 Ah
+Ahl_daily = 40.70 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.95 V
+
+Log Record: 0x80D0
+
+hourmeter = 7247 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.33 V
+Vb_max_daily = 14.92 V
+Ahc_daily = 65.20 Ah
+Ahl_daily = 38.40 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 32.53 V
+
+Log Record: 0x80E0
+
+hourmeter = 7271 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.37 V
+Vb_max_daily = 14.82 V
+Ahc_daily = 61.70 Ah
+Ahl_daily = 40.00 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.27 V
+
+Log Record: 0x80F0
+
+hourmeter = 7295 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.33 V
+Vb_max_daily = 14.69 V
+Ahc_daily = 50.60 Ah
+Ahl_daily = 38.60 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 30.42 V
+
+Log Record: 0x8100
+
+hourmeter = 7319 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.29 V
+Vb_max_daily = 14.68 V
+Ahc_daily = 67.30 Ah
+Ahl_daily = 40.60 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.22 V
+
+Log Record: 0x8110
+
+hourmeter = 7343 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.16 V
+Vb_max_daily = 14.68 V
+Ahc_daily = 69.30 Ah
+Ahl_daily = 40.80 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 30.87 V
+
+Log Record: 0x8120
+
+hourmeter = 7367 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.16 V
+Vb_max_daily = 14.60 V
+Ahc_daily = 94.80 Ah
+Ahl_daily = 37.90 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 30.74 V
+
+Log Record: 0x8130
+
+hourmeter = 7391 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.44 V
+Vb_max_daily = 14.61 V
+Ahc_daily = 64.00 Ah
+Ahl_daily = 38.00 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 30.74 V
+
+Log Record: 0x8140
+
+hourmeter = 7415 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.37 V
+Vb_max_daily = 13.66 V
+Ahc_daily = 34.60 Ah
+Ahl_daily = 38.90 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.73 V
+
+Log Record: 0x8150
+
+hourmeter = 7439 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.27 V
+Vb_max_daily = 14.80 V
+Ahc_daily = 84.50 Ah
+Ahl_daily = 39.70 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.50 V
+
+Log Record: 0x8160
+
+hourmeter = 6689 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.36 V
+Vb_max_daily = 14.99 V
+Ahc_daily = 59.00 Ah
+Ahl_daily = 37.20 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 200.00 V
+
+Log Record: 0x8170
+
+hourmeter = 6713 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.29 V
+Vb_max_daily = 14.91 V
+Ahc_daily = 55.10 Ah
+Ahl_daily = 38.90 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 200.00 V
+
+Log Record: 0x8180
+
+hourmeter = 6737 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.29 V
+Vb_max_daily = 14.99 V
+Ahc_daily = 44.70 Ah
+Ahl_daily = 40.90 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 200.00 V
+
+Log Record: 0x8190
+
+hourmeter = 6761 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.29 V
+Vb_max_daily = 14.98 V
+Ahc_daily = 63.80 Ah
+Ahl_daily = 40.50 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 200.00 V
+
+Log Record: 0x81A0
+
+hourmeter = 6785 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.33 V
+Vb_max_daily = 14.91 V
+Ahc_daily = 35.90 Ah
+Ahl_daily = 40.00 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 200.00 V
+
+Log Record: 0x81B0
+
+hourmeter = 6809 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.22 V
+Vb_max_daily = 13.89 V
+Ahc_daily = 31.30 Ah
+Ahl_daily = 42.90 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 200.00 V
+
+Log Record: 0x81C0
+
+hourmeter = 6838 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.40 V
+Vb_max_daily = 14.98 V
+Ahc_daily = 66.20 Ah
+Ahl_daily = 44.70 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 32.57 V
+
+Log Record: 0x81D0
+
+hourmeter = 6862 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.33 V
+Vb_max_daily = 14.72 V
+Ahc_daily = 48.80 Ah
+Ahl_daily = 41.30 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 30.94 V
+
+Log Record: 0x81E0
+
+hourmeter = 6886 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	Current limit
+Vb_min_daily = 12.33 V
+Vb_max_daily = 14.08 V
+Ahc_daily = 34.50 Ah
+Ahl_daily = 40.90 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 31.18 V
+
+Log Record: 0x81F0
+
+hourmeter = 6909 h
+alarm_daily = Today's controller self-diagnostic alarms:
+	No alarms
+Vb_min_daily = 12.27 V
+Vb_max_daily = 12.48 V
+Ahc_daily = 0.00 Ah
+Ahl_daily = 36.80 Ah
+array_fault_daily = Today's solar input self-diagnostic faults:
+	No faults
+load_fault_daily = Today's load output self-diagnostic faults:
+	No faults
+Va_max_daily = 30.07 V
+
