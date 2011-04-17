@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 	/* Open the MODBUS connection */
 	if (modbus_connect(&mb_param) == -1) {
 		printf("ERROR Connection failed\n");
-		exit(1);
+		return(1);
 	}
 
 	/* Read the first five RAM Registers (0x04) and convert the results to
