@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
     if(argc < 2){
         printf("need to give serial port on command line\n");
-        exit(1);
+        return(1);
     }
 	/* Setup the serial port parameters */
 	modbus_init_rtu(&mb_param, argv[1], 9600, "none", 8, 2);
