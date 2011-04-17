@@ -41,6 +41,8 @@ int main(int argc, char** argv)
 	/* Setup the serial port parameters */
 	modbus_init_rtu(&mb_param, argv[1], 9600, "none", 8, 2);
 
+    modbus_set_debug(&mb_param, TRUE);
+
 	/* Open the MODBUS connection */
 	if (modbus_connect(&mb_param) == -1) {
 		printf("ERROR Connection failed\n");
