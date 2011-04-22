@@ -53,6 +53,11 @@ int main(int argc, char** argv)
 		their proper floating point values */
 	ret = read_input_registers(&mb_param, SUNSAVERMPPT, 0x0008, 5, data);
 
+
+	/* Close the MODBUS connection */
+	modbus_close(&mb_param);
+
+
 	adc_vb_f=data[0]*100.0/32768.0;
 	printf("adc_vb_f=%.2f\n",adc_vb_f);
 
@@ -68,8 +73,6 @@ int main(int argc, char** argv)
 	adc_il_f=data[4]*79.16/32768.0;
 	printf("adc_il_f=%.2f\n",adc_il_f);
 
-	/* Close the MODBUS connection */
-	modbus_close(&mb_param);
 
 	return(0);
 }
