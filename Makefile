@@ -17,3 +17,5 @@ all: $(TARGETS)
 clean::
 	rm -f $(TARGETS) *.o
 
+install: $(TARGETS)
+	(for i in  $(TARGETS); do cp $$i /usr/local/bin/; done)
