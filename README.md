@@ -6,13 +6,13 @@ Updated by ken restivo to add a Makefile and some other minor modifications.
 
 # Installing
 
-I had to use [libmodbus](http://www.libmodbus.org/) 2.03 because 3.02 suggested in the original blogpost did not compile properly on my system.
+I had to use [libmodbus](http://www.libmodbus.org/) 2.0.3 because 3.02 suggested in the original blogpost did not compile properly on my system.
 
-This is known to work fine with libmodbus 2.03.
+This fork is known to me to work with libmodbus 2.0.3 on Linux.
 
-As the original author mentioned in his blog post, you'll also need a build system for linux and OSX.
+As the original author mentioned in his blog post, you'll also need a build system for linux or OSX.
 
-I built libmodbus and this software successfully on a [Beaglebone](http://beagleboard.org/bone/) running Angstrom linux.
+I built and run libmodbus and this software successfully on a [Beaglebone](http://beagleboard.org/bone/) running Angstrom linux.
 
 You'll also need a SunSaver MPPT and a MSC interface or equivalent.
 
