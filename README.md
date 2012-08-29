@@ -1,0 +1,23 @@
+# Sunsaver Linux Command line interface
+
+This is a fork of [the Sunsaver interface software created by Tom Rinehart](http://westyd1982.wordpress.com/2010/03/26/linux-and-mac-os-x-software-to-read-data-from-the-sunsaver-mppt-using-modbus/)
+
+Updated by ken restivo to add a Makefile and some other minor modifications.
+
+# Installing
+
+I had to use [libmodbus](http://www.libmodbus.org/) 2.03 because 3.02 suggested in the original blogpost did not compile properly on my system.
+
+This is known to work fine with libmodbus 2.03.
+
+As the original author mentioned in his blog post, you'll also need a build system for linux and OSX.
+
+I built libmodbus and this software successfully on a [Beaglebone](http://beagleboard.org/bone/) running Angstrom linux.
+
+You'll also need a SunSaver MPPT and a MSC interface or equivalent.
+
+Have fun!
+
+# License
+
+GPL Version 3.
