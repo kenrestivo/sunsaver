@@ -60,6 +60,11 @@ int main(int argc, char** argv)
 	/* Read the RAM Registers */
 	ret = read_input_registers(&mb_param, SUNSAVERMPPT, 0x0008, 45, data);
 	
+	if (ret < 0){
+		printf("ERROR Communication Error\n");
+		return(1);
+	}
+    
 	/* Close the MODBUS connection */
 	modbus_close(&mb_param);
 	
