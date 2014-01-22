@@ -51,10 +51,13 @@ int main(int argc, char** argv)
 	int c;
 	
 
-	while( (c= getopt(argc, argv, "h")) != -1) {
+	while( (c= getopt(argc, argv, "hd")) != -1) {
 		switch(c){
 		case 'h': 
 			half_duplex = 1;
+			break;
+		case 'd': 
+			modbus_set_debug(&mb_param, TRUE);
 			break;
 		default:
 			break;
