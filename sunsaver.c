@@ -44,6 +44,7 @@ int main(int argc, char** argv)
 	uint16_t data[50];
 	int half_duplex = 0;
 	int c;
+	int debug = 0;
 
 
 	while( (c= getopt(argc, argv, "hd")) != -1) {
@@ -52,7 +53,7 @@ int main(int argc, char** argv)
 			half_duplex = 1;
 			break;
 		case 'd': 
-			modbus_set_debug(&mb_param, TRUE);
+			debug = 1;
 			break;
 		default:
 			break;
@@ -70,6 +71,11 @@ int main(int argc, char** argv)
 
 	/* Setup the serial port parameters */
 	modbus_init_rtu(&mb_param, argv[optind], 9600, "none", 8, 2, half_duplex);	
+
+	if(debug > 0){
+		modbus_set_debug(&mb_param, TRUE);
+	}
+
 	
 	/* Open the MODBUS connection */
 	if (modbus_connect(&mb_param) == -1) {

@@ -2,20 +2,20 @@
  *  sunsaverEEPROM.c - This program reads all the EEPROM registers on a Moringstar SunSaver MPPT and prints the results.
  *  
 
-Copyright 2010 Tom Rinehart.
+ Copyright 2010 Tom Rinehart.
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
@@ -49,7 +49,8 @@ int main(int argc, char** argv)
 	uint16_t data[50];
 	int half_duplex = 0;
 	int c;
-	
+	int debug = 0;
+		
 
 	while( (c= getopt(argc, argv, "hd")) != -1) {
 		switch(c){
@@ -57,7 +58,7 @@ int main(int argc, char** argv)
 			half_duplex = 1;
 			break;
 		case 'd': 
-			modbus_set_debug(&mb_param, TRUE);
+			debug = 1;
 			break;
 		default:
 			break;
@@ -75,6 +76,12 @@ int main(int argc, char** argv)
 
 	/* Setup the serial port parameters */
 	modbus_init_rtu(&mb_param, argv[optind], 9600, "none", 8, 2, half_duplex);	
+
+
+	if(debug > 0){
+		modbus_set_debug(&mb_param, TRUE);
+	}
+
 	
 	/* Open the MODBUS connection */
 	if (modbus_connect(&mb_param) == -1) {

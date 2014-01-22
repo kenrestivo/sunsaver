@@ -2,20 +2,20 @@
  *  sunsavertest.c
  *  
 
-Copyright 2010 Tom Rinehart.
+ Copyright 2010 Tom Rinehart.
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see .
 
 */
 
@@ -36,6 +36,7 @@ int main(int argc, char** argv)
 	uint16_t data[10];
 	int half_duplex = 0;
 	int c;
+	int debug = 0;
 
 	while( (c= getopt(argc, argv, "hd")) != -1) {
 		switch(c){
@@ -43,7 +44,7 @@ int main(int argc, char** argv)
 			half_duplex = 1;
 			break;
 		case 'd': 
-			modbus_set_debug(&mb_param, TRUE);
+			debug = 1;
 			break;
 		default:
 			break;
@@ -62,7 +63,10 @@ int main(int argc, char** argv)
 	/* Setup the serial port parameters */
 	modbus_init_rtu(&mb_param, argv[optind], 9600, "none", 8, 2, half_duplex);	
 
-    modbus_set_debug(&mb_param, TRUE);
+	if(debug > 0){
+		modbus_set_debug(&mb_param, TRUE);
+	}
+
 
 	/* Open the MODBUS connection */
 	if (modbus_connect(&mb_param) == -1) {
@@ -71,7 +75,7 @@ int main(int argc, char** argv)
 	}
 
 	/* Read the first five RAM Registers (0x04) and convert the results to
-		their proper floating point values */
+	   their proper floating point values */
 	ret = read_input_registers(&mb_param, SUNSAVERMPPT, 0x0008, 5, data);
 
 
