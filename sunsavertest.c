@@ -24,6 +24,7 @@ along with this program.  If not, see .
 #include <stdio.h>
 #include <stdlib.h>
 #include <modbus/modbus.h>
+#include <getopt.h>
 
 #define SUNSAVERMPPT    0x01	/* Default address of the SunSaver MPPT */
 
@@ -33,13 +34,30 @@ int main(int argc, char** argv)
 	int ret;
 	float adc_vb_f,adc_va_f,adc_vl_f,adc_ic_f,adc_il_f;
 	uint16_t data[10];
+	int half_duplex = 0;
+	int c;
 
-    if(argc < 2){
+	while( (c= getopt(argc, argv, "h")) != -1) {
+		switch(c){
+		case 'h': 
+			half_duplex = 1;
+			break;
+		default:
+			break;
+		}
+	}
+
+
+    if(optind == argc){
         printf("need to give serial port on command line\n");
         return(1);
     }
+
+	
+
+
 	/* Setup the serial port parameters */
-	modbus_init_rtu(&mb_param, argv[1], 9600, "none", 8, 2);
+	modbus_init_rtu(&mb_param, argv[optind], 9600, "none", 8, 2, half_duplex);	
 
     modbus_set_debug(&mb_param, TRUE);
 

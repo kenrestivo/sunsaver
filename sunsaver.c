@@ -2,20 +2,20 @@
  *  sunsaver.c - This program reads all the RAM registers on a Moringstar SunSaver MPPT and prints the results.
  *  
 
-Copyright 2010 Tom Rinehart.
+ Copyright 2010 Tom Rinehart.
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <stdlib.h>
 #include <modbus/modbus.h>
+#include <getopt.h>
 
 #define SUNSAVERMPPT    0x01	/* MODBUS Address of the SunSaver MPPT */
 
@@ -41,15 +42,31 @@ int main(int argc, char** argv)
 	unsigned short array_fault, load_fault, dip_switch, array_fault_daily, load_fault_daily;
 	unsigned int alarm, alarm_daily;
 	uint16_t data[50];
-	
+	int half_duplex = 0;
+	int c;
 
-    if(argc < 2){
+
+	while( (c= getopt(argc, argv, "h")) != -1) {
+		switch(c){
+		case 'h': 
+			half_duplex = 1;
+			break;
+		default:
+			break;
+		}
+	}
+
+
+    if(optind == argc){
         printf("need to give serial port on command line\n");
         return(1);
     }
 
+	
+
+
 	/* Setup the serial port parameters */
-	modbus_init_rtu(&mb_param, argv[1], 9600, "none", 8, 2);	
+	modbus_init_rtu(&mb_param, argv[optind], 9600, "none", 8, 2, half_duplex);	
 	
 	/* Open the MODBUS connection */
 	if (modbus_connect(&mb_param) == -1) {
@@ -100,33 +117,33 @@ int main(int argc, char** argv)
 	
 	charge_state=data[9];
 	switch (charge_state) {
-		case 0:
-			printf("charge_state = %d START\n",charge_state);
-			break;
-		case 1:
-			printf("charge_state = %d NIGHT_CHECK\n",charge_state);
-			break;
-		case 2:
-			printf("charge_state = %d DISCONNECT\n",charge_state);
-			break;
-		case 3:
-			printf("charge_state = %d NIGHT\n",charge_state);
-			break;
-		case 4:
-			printf("charge_state = %d FAULT\n",charge_state);
-			break;
-		case 5:
-			printf("charge_state = %d BULK_CHARGE\n",charge_state);
-			break;
-		case 6:
-			printf("charge_state = %d ABSORPTION\n",charge_state);
-			break;
-		case 7:
-			printf("charge_state = %d FLOAT\n",charge_state);
-			break;
-		case 8:
-			printf("charge_state = %d EQUALIZE\n",charge_state);
-			break;
+	case 0:
+		printf("charge_state = %d START\n",charge_state);
+		break;
+	case 1:
+		printf("charge_state = %d NIGHT_CHECK\n",charge_state);
+		break;
+	case 2:
+		printf("charge_state = %d DISCONNECT\n",charge_state);
+		break;
+	case 3:
+		printf("charge_state = %d NIGHT\n",charge_state);
+		break;
+	case 4:
+		printf("charge_state = %d FAULT\n",charge_state);
+		break;
+	case 5:
+		printf("charge_state = %d BULK_CHARGE\n",charge_state);
+		break;
+	case 6:
+		printf("charge_state = %d ABSORPTION\n",charge_state);
+		break;
+	case 7:
+		printf("charge_state = %d FLOAT\n",charge_state);
+		break;
+	case 8:
+		printf("charge_state = %d EQUALIZE\n",charge_state);
+		break;
 	}
 	
 	array_fault=data[10];
@@ -169,24 +186,24 @@ int main(int argc, char** argv)
 	
 	load_state=data[18];
 	switch (load_state) {
-		case 0:
-			printf("load_state = %d START\n",load_state);
-			break;
-		case 1:
-			printf("load_state = %d LOAD_ON\n",load_state);
-			break;
-		case 2:
-			printf("load_state = %d LVD_WARNING\n",load_state);
-			break;
-		case 3:
-			printf("load_state = %d LVD\n",load_state);
-			break;
-		case 4:
-			printf("load_state = %d FAULT\n",load_state);
-			break;
-		case 5:
-			printf("load_state = %d DISCONNECT\n",load_state);
-			break;
+	case 0:
+		printf("load_state = %d START\n",load_state);
+		break;
+	case 1:
+		printf("load_state = %d LOAD_ON\n",load_state);
+		break;
+	case 2:
+		printf("load_state = %d LVD_WARNING\n",load_state);
+		break;
+	case 3:
+		printf("load_state = %d LVD\n",load_state);
+		break;
+	case 4:
+		printf("load_state = %d FAULT\n",load_state);
+		break;
+	case 5:
+		printf("load_state = %d DISCONNECT\n",load_state);
+		break;
 	}
 	
 	load_fault=data[19];
@@ -272,66 +289,66 @@ int main(int argc, char** argv)
 	
 	led_state=data[30];
 	switch (led_state) {
-		case 0:
-			printf("led_state = %d LED_START\n",led_state);
-			break;
-		case 1:
-			printf("led_state = %d LED_START2\n",led_state);
-			break;
-		case 2:
-			printf("led_state = %d LED_BRANCH\n",led_state);
-			break;
-		case 3:
-			printf("led_state = %d EQUALIZE (FAST GREEN BLINK)\n",led_state);
-			break;
-		case 4:
-			printf("led_state = %d FLOAT (SLOW GREEN BLINK)\n",led_state);
-			break;
-		case 5:
-			printf("led_state = %d ABSORPTION (GREEN BLINK, 1HZ)\n",led_state);
-			break;
-		case 6:
-			printf("led_state = %d GREEN_LED\n",led_state);
-			break;
-		case 7:
-			printf("led_state = %d UNDEFINED\n",led_state);
-			break;
-		case 8:
-			printf("led_state = %d YELLOW_LED\n",led_state);
-			break;
-		case 9:
-			printf("led_state = %d UNDEFINED\n",led_state);
-			break;
-		case 10:
-			printf("led_state = %d BLINK_RED_LED\n",led_state);
-			break;
-		case 11:
-			printf("led_state = %d RED_LED\n",led_state);
-			break;
-		case 12:
-			printf("led_state = %d R-Y-G ERROR\n",led_state);
-			break;
-		case 13:
-			printf("led_state = %d R/Y-G ERROR\n",led_state);
-			break;
-		case 14:
-			printf("led_state = %d R/G-Y ERROR\n",led_state);
-			break;
-		case 15:
-			printf("led_state = %d R-Y ERROR (HTD)\n",led_state);
-			break;
-		case 16:
-			printf("led_state = %d R-G ERROR (HVD)\n",led_state);
-			break;
-		case 17:
-			printf("led_state = %d R/Y-G/Y ERROR\n",led_state);
-			break;
-		case 18:
-			printf("led_state = %d G/Y/R ERROR\n",led_state);
-			break;
-		case 19:
-			printf("led_state = %d G/Y/R x 2\n",led_state);
-			break;
+	case 0:
+		printf("led_state = %d LED_START\n",led_state);
+		break;
+	case 1:
+		printf("led_state = %d LED_START2\n",led_state);
+		break;
+	case 2:
+		printf("led_state = %d LED_BRANCH\n",led_state);
+		break;
+	case 3:
+		printf("led_state = %d EQUALIZE (FAST GREEN BLINK)\n",led_state);
+		break;
+	case 4:
+		printf("led_state = %d FLOAT (SLOW GREEN BLINK)\n",led_state);
+		break;
+	case 5:
+		printf("led_state = %d ABSORPTION (GREEN BLINK, 1HZ)\n",led_state);
+		break;
+	case 6:
+		printf("led_state = %d GREEN_LED\n",led_state);
+		break;
+	case 7:
+		printf("led_state = %d UNDEFINED\n",led_state);
+		break;
+	case 8:
+		printf("led_state = %d YELLOW_LED\n",led_state);
+		break;
+	case 9:
+		printf("led_state = %d UNDEFINED\n",led_state);
+		break;
+	case 10:
+		printf("led_state = %d BLINK_RED_LED\n",led_state);
+		break;
+	case 11:
+		printf("led_state = %d RED_LED\n",led_state);
+		break;
+	case 12:
+		printf("led_state = %d R-Y-G ERROR\n",led_state);
+		break;
+	case 13:
+		printf("led_state = %d R/Y-G ERROR\n",led_state);
+		break;
+	case 14:
+		printf("led_state = %d R/G-Y ERROR\n",led_state);
+		break;
+	case 15:
+		printf("led_state = %d R-Y ERROR (HTD)\n",led_state);
+		break;
+	case 16:
+		printf("led_state = %d R-G ERROR (HVD)\n",led_state);
+		break;
+	case 17:
+		printf("led_state = %d R/Y-G/Y ERROR\n",led_state);
+		break;
+	case 18:
+		printf("led_state = %d G/Y/R ERROR\n",led_state);
+		break;
+	case 19:
+		printf("led_state = %d G/Y/R x 2\n",led_state);
+		break;
 	}
 	
 	Power_out=data[31]*989.5/65536.0;

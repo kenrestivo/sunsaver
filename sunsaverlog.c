@@ -2,20 +2,20 @@
  *  sunsaverlog.c - This program reads all the log registers on a Moringstar SunSaver MPPT and prints the results.
  *  
 
-Copyright 2010 Tom Rinehart.
+ Copyright 2010 Tom Rinehart.
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <stdlib.h>
 #include <modbus/modbus.h>
+#include <getopt.h>
 
 #define SUNSAVERMPPT    0x01	/* MODBUS Address of the SunSaver MPPT */
 
@@ -36,15 +37,29 @@ int main(int argc, char** argv)
 	float Vb_min_daily, Vb_max_daily, Ahc_daily, Ahl_daily, Va_max_daily;
 	unsigned short array_fault_daily, load_fault_daily;
 	unsigned short data[16];
+	int c;
+	int half_duplex = 0;
 	
-    if(argc < 2){
+
+	while( (c= getopt(argc, argv, "h")) != -1) {
+		switch(c){
+		case 'h': 
+			half_duplex = 1;
+			break;
+		default:
+			break;
+		}
+	}
+
+
+    if(optind == argc){
         printf("need to give serial port on command line\n");
         return(1);
     }
 
 
 	/* Setup the serial port parameters */
-	modbus_init_rtu(&mb_param, argv[1], 9600, "none", 8, 2);	
+	modbus_init_rtu(&mb_param, argv[optind], 9600, "none", 8, 2, half_duplex);	
 	
 	/* Open the MODBUS connection */
 	if (modbus_connect(&mb_param) == -1) {

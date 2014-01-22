@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <stdlib.h>
 #include <modbus/modbus.h>
+#include <getopt.h>
 
 #define SUNSAVERMPPT    0x01	/* MODBUS Address of the SunSaver MPPT */
 
@@ -46,15 +47,31 @@ int main(int argc, char** argv)
 	short Etmr_eqcalendar;
 	float EAhl_r, EAhl_t, EAhc_r, EAhc_t, EkWhc, EVb_min, EVb_max, EVa_max;
 	uint16_t data[50];
+	int half_duplex = 0;
+	int c;
 	
 
-    if(argc < 2){
+	while( (c= getopt(argc, argv, "h")) != -1) {
+		switch(c){
+		case 'h': 
+			half_duplex = 1;
+			break;
+		default:
+			break;
+		}
+	}
+
+
+    if(optind == argc){
         printf("need to give serial port on command line\n");
         return(1);
     }
 
+	
+
+
 	/* Setup the serial port parameters */
-	modbus_init_rtu(&mb_param, argv[1], 9600, "none", 8, 2);	
+	modbus_init_rtu(&mb_param, argv[optind], 9600, "none", 8, 2, half_duplex);	
 	
 	/* Open the MODBUS connection */
 	if (modbus_connect(&mb_param) == -1) {
