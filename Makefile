@@ -1,7 +1,7 @@
 #names
 
 #build stuff
-TARGETS= sunsaver sunsaverEEPROM sunsaverlog sunsavertest
+TARGETS= sunsaver sunsaverEEPROM sunsaverlog sunsavertest sunsaver-raw
 CFLAGS:= -g -Wall  -O3  -I. -I/usr/local/include 
 LDFLAGS=-lmodbus
 
