@@ -8,7 +8,7 @@ Updated by ken restivo to add a Makefile and some other minor modifications.
 
 I had to use [libmodbus](http://www.libmodbus.org/) 2.0.3 because 3.02 suggested in the original blogpost did not compile properly on my system.
 
-This fork requires [a forked version of libmodbus](https://github.com/kenrestivo/libmodbus) which supports half-duplex operation.
+This fork requires [a forked branch of libmodbus](https://github.com/kenrestivo/libmodbus/tree/half-duplex) which supports half-duplex operation.
 
 As the original author mentioned in his blog post, you'll also need a build system for linux or OSX.
 
