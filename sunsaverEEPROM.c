@@ -126,6 +126,34 @@ reg lookup_reg(char * name)
 
 
 
+void commit_options(modbus_param_t * mb_param)
+{
+
+	int ret;
+
+	// XXX Redundant? seems to do nothing
+	if(debug > 0){
+		printf ("now forcing the eeprom\n");
+	}	       
+	ret = force_single_coil(mb_param, SUNSAVERMPPT, FORCE_EEPROM_UPDATE, 1);
+
+	if(debug > 0){
+		printf("set returnd %d\n", ret);
+	}
+
+	sleep(2); // just to be sure
+
+	if(debug > 0){
+		printf ("now forcing the reset\n");
+	}	       
+	ret = force_single_coil(mb_param, SUNSAVERMPPT, RESET_CONTROL, 1);
+			       
+	if(debug > 0){
+		printf("set returnd %d\n", ret);
+	}
+
+}
+
 
 void set_options(modbus_param_t * mb_param, char * arg){
 	int ret;
@@ -169,29 +197,9 @@ void set_options(modbus_param_t * mb_param, char * arg){
 		}
 
 		sleep(2); // just to be sure
-
-		// XXX Redundant? seems to do nothing
-		if(debug > 0){
-			printf ("now forcing the eeprom\n");
-		}	       
-		ret = force_single_coil(mb_param, SUNSAVERMPPT, FORCE_EEPROM_UPDATE, 1);
-
-		if(debug > 0){
-			printf("set returnd %d\n", ret);
-		}
-
-		sleep(2); // just to be sure
-
-		if(debug > 0){
-			printf ("now forcing the reset\n");
-		}	       
-		ret = force_single_coil(mb_param, SUNSAVERMPPT, RESET_CONTROL, 1);
-			       
-		if(debug > 0){
-			printf("set returnd %d\n", ret);
-		}
-
-
+		
+		commit_options(mb_param);
+		
 	}
 
 }
