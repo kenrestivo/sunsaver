@@ -102,7 +102,7 @@ float shift_float(uint16_t hi, uint16_t lo)
 }
 
 
-#define NUM_REGS 2
+#define NUM_REGS 5
 static const reg regs[NUM_REGS] = {
 	{ 0xE00E, "EV_float2",  float_to_int, to_float     },
 	{ 0xE011, "EV_floatlb_trip2", float_to_int, to_float},
