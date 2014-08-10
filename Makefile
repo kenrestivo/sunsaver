@@ -4,9 +4,9 @@
 TARGETS= sunsaver sunsaverEEPROM sunsaverlog sunsavertest sunsaver-raw
 CFLAGS:= -g -Wall  -O3  -I. -I/usr/local/include 
 LDFLAGS=-lmodbus
-TEST_OPTIONS=-h -d 
-DRY_OPTIONS=-h -d -n
 COMM=/dev/rfcomm0
+TEST_OPTIONS=-h -v -d $(COMM)
+DRY_OPTIONS=-h -v -n -d $(COMM)
 
 # so i can get ssl cflags in there
 
@@ -25,19 +25,27 @@ install: $(TARGETS)
 
 
 test:: all
-	./sunsaverEEPROM -h $(COMM)
+	./sunsaverEEPROM -h 
 
 test_set:: all
-	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float2=13.40 $(COMM)
-	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_floatlb_trip2=12.7 $(COMM)
-	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float_cancel2=12.5 $(COMM)
-	./sunsaverEEPROM $(TEST_OPTIONS) -s Et_float_exit_cum2=1500 $(COMM)
-	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float2=13.4 $(COMM)
+	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float2=13.40 
+	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_floatlb_trip2=12.7 
+	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float_cancel2=12.5 
+	./sunsaverEEPROM $(TEST_OPTIONS) -s Et_float_exit_cum2=1500 
+	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float2=13.4 
 
 
 test_dry:: all
-	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float2=13.40 $(COMM)
-	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_floatlb_trip2=12.7 $(COMM)
-	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float_cancel2=12.5 $(COMM)
-	./sunsaverEEPROM $(DRY_OPTIONS) -s Et_float_exit_cum2=1500 $(COMM)
-	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float2=13.4 $(COMM)
+	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float2=13.40 
+	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_floatlb_trip2=12.7 
+	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float_cancel2=12.5 
+	./sunsaverEEPROM $(DRY_OPTIONS) -s Et_float_exit_cum2=1500 
+	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float2=13.4 
+
+
+test_multiopts_dry:: all
+	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float2=13.40 EV_floatlb_trip2=12.7 
+
+test_multiopts:: all
+	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float2=13.40  EV_floatlb_trip2=12.7  EV_float_cancel2=12.5  Et_float_exit_cum2=1500  EV_float2=13.4 
+

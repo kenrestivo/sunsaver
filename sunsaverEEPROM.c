@@ -37,6 +37,10 @@
 #define FORCE_EEPROM_UPDATE 0x16
 #define RESET_CONTROL 0xff
 
+
+#define MAX_SETS 255
+#define MAX_STR 255
+
 int debug  =  0;
 int dry  =  0;
 
@@ -50,7 +54,7 @@ typedef struct reg_t {
 
 void usage()
 {
-	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-d debug\n\t-n dry run (no comms)\n\t-s reg_name=val set register\n");
+	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-v verbose (debug)\n\t-n dry run (no comms)\n\t-s reg_name=val set register\n");
 
 }
 
@@ -133,7 +137,7 @@ void commit_options(modbus_param_t * mb_param)
 
 	// XXX Redundant? seems to do nothing
 	if(debug > 0){
-		printf ("now forcing the eeprom\n");
+		printf ("\n\nnow forcing the eeprom\n");
 	}	       
 	ret = force_single_coil(mb_param, SUNSAVERMPPT, FORCE_EEPROM_UPDATE, 1);
 
@@ -144,7 +148,7 @@ void commit_options(modbus_param_t * mb_param)
 	sleep(2); // just to be sure
 
 	if(debug > 0){
-		printf ("now forcing the reset\n");
+		printf ("now forcing the reset. this will NOT return anything!\n");
 	}	       
 	ret = force_single_coil(mb_param, SUNSAVERMPPT, RESET_CONTROL, 1);
 			       
@@ -197,8 +201,6 @@ void set_options(modbus_param_t * mb_param, char * arg){
 		}
 
 		sleep(2); // just to be sure
-		
-		commit_options(mb_param);
 		
 	}
 
@@ -425,35 +427,45 @@ int main(int argc, char** argv)
 	modbus_param_t mb_param;
 	int half_duplex  =  0;
 	int c;
-	char *set_val  =  NULL;
+	char ** svp;
+	int i;
+	char set_args[MAX_SETS][MAX_STR];
+	char *device  =  NULL;
+	
+	memset(set_args, 0, sizeof(set_args));
 
-	while( (c =  getopt(argc, argv, "hnds:")) !=  -1) {
+	while( (c =  getopt(argc, argv, "hnvd:s:")) !=  -1) {
 		switch(c){
 		case 'h': 
 			half_duplex  =  1;
 			break;
-		case 'd': 
+		case 'v': 
 			debug  =  1;
 			break;
 		case 'n': 
 			dry  =  1;
 			break;
+		case 'd':
+			device = optarg;
+
 		case 's':
-			set_val  =  optarg;
 /*
   TODO: http://stackoverflow.com/questions/3939157/c-getopt-multiple-value
-  optind--;
-  for( ;optind < argc && *argv[optind] ! =  '-'; optind++){
-  DoSomething( argv[optind] );         
-  }
-*/
+*/			optind--;
+			for(i = 0 ; optind < argc && *argv[optind] !=  '-'; optind++, i++){
+				strcpy(set_args[i], argv[optind]);
+				if(debug > 0){
+					printf("multiopt: %s %s\n", argv[optind], set_args[i] );         
+				}
+			}
+			break;
 		default:
 			break;
 		}
 	}
 
 
-	if(optind  ==  argc){
+	if(!device){
 		printf("need to give serial port on command line\n");
 		usage();
 		return(1);
@@ -463,7 +475,7 @@ int main(int argc, char** argv)
 
 
 	/* Setup the serial port parameters */
-	modbus_init_rtu(&mb_param, argv[optind], 9600, "none", 8, 2, half_duplex);	
+	modbus_init_rtu(&mb_param, device, 9600, "none", 8, 2, half_duplex);	
 
 
 	if(debug > 0){
@@ -477,10 +489,15 @@ int main(int argc, char** argv)
 		return(1);
 	}
 
-	if(set_val){
+	
+	i=0; 
+	while(*set_args[i]){
 		printf("\nSetting values...\n");
-		set_options(&mb_param, set_val);
-		printf("\nVerifying values...\n");
+		set_options(&mb_param, set_args[i]);
+		i++;
+	}
+	if(dry < 1 && *set_args[0]){
+		commit_options(&mb_param);
 	}
 
 	if(dry < 1){
