@@ -133,7 +133,7 @@ void set_options(modbus_param_t * mb_param, char * arg){
 	if(NO_SUCH_REG == r.addr){
 		printf("Error, %s is not a register\n", key);
 		usage();
-		exit(1);
+		return;
 	}
 
 
