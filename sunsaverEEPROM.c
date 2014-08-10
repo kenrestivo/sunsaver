@@ -54,7 +54,7 @@ typedef struct reg_t {
 
 void usage()
 {
-	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-v verbose (debug)\n\t-n dry run (no comms)\n\t-s reg_name=val set register\n");
+	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-d /path/to/device\n\t-v verbose (debug)\n\t-n dry run (no comms)\n\t-s reg_name=val another_reg_name=another_val, etc... (set registers)\n");
 
 }
 
