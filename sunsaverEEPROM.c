@@ -53,6 +53,17 @@ void usage()
 	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-d debug\n\t-n dry run (no setting)\n\t-s reg_name=val set register\n");
 }
 
+uint16_t straight_cast_int(float f)
+{
+	return (uint16_t)f;
+}
+
+
+float straight_cast_float(uint16_t i)
+{
+	return (float)i;
+}
+
 
 uint16_t float_to_int(float f)
 {
@@ -92,9 +103,12 @@ float shift_float(uint16_t hi, uint16_t lo)
 
 #define NUM_REGS 2
 static const reg regs[NUM_REGS] = {
-	{    0xE00E, "EV_float2",  float_to_int, to_float     },
+	{ 0xE00E, "EV_float2",  float_to_int, to_float     },
+	{ 0xE011, "EV_floatlb_trip2", float_to_int, to_float},
+	{ 0xE012, "EV_float_cancel2", float_to_int, to_float},
+	{ 0xE013, "Et_float_exit_cum2", straight_cast_int, straight_cast_float},
 	// TODO: the rest of the registers!
-	{    NO_SUCH_REG, "NO SUCH REG", NULL,  NULL     } // last one must always be the incorrect one
+	{ NO_SUCH_REG, "NO SUCH REG", NULL,  NULL     } // last one must always be the incorrect one
 };
 
 reg lookup_reg(char * name)
