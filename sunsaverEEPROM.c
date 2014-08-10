@@ -50,7 +50,8 @@ typedef struct reg_t {
 
 void usage()
 {
-	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-d debug\n\t-n dry run (no setting)\n\t-s reg_name=val set register\n");
+	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-d debug\n\t-n dry run (no comms)\n\t-s reg_name=val set register\n");
+
 }
 
 uint16_t straight_cast_int(float f)
@@ -474,7 +475,9 @@ int main(int argc, char** argv)
 		printf("\nVerifying values...\n");
 	}
 
-	read_values(&mb_param);
+	if(dry < 1){
+		read_values(&mb_param);
+	}
 	
 	/* Close the MODBUS connection */
 	modbus_close(&mb_param);

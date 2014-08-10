@@ -30,3 +30,7 @@ test_set:: all
 
 test_dry:: all
 	./sunsaverEEPROM -h -d -n -s EV_float2=13.40 /dev/rfcomm0
+	./sunsaverEEPROM -h -d -n -s EV_floatlb_trip2=12.7 /dev/rfcomm0
+	./sunsaverEEPROM -h -d -n -s EV_float_cancel2=12.5 /dev/rfcomm0
+	./sunsaverEEPROM -h -d -n -s Et_float_exit_cum2=1500 /dev/rfcomm0
+	./sunsaverEEPROM -h -d -n -s EV_float2=13.4 /dev/rfcomm0
