@@ -50,7 +50,7 @@ typedef struct reg_t {
 
 void usage()
 {
-	printf("usage:\n\n-h help\n\t-d debug\n\t-n dry run (no setting)\n\t-s reg_name=val set register\n");
+	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-d debug\n\t-n dry run (no setting)\n\t-s reg_name=val set register\n");
 }
 
 
@@ -432,6 +432,7 @@ int main(int argc, char** argv)
 
 	if(optind  ==  argc){
 		printf("need to give serial port on command line\n");
+		usage();
 		return(1);
 	}
 
