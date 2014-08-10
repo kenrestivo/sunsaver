@@ -449,9 +449,8 @@ int main(int argc, char** argv)
 			device = optarg;
 
 		case 's':
-/*
-  TODO: http://stackoverflow.com/questions/3939157/c-getopt-multiple-value
-*/			optind--;
+			// thanks to http://stackoverflow.com/questions/3939157/c-getopt-multiple-value
+			optind--;
 			for(i = 0 ; optind < argc && *argv[optind] !=  '-'; optind++, i++){
 				strcpy(set_args[i], argv[optind]);
 				if(debug > 0){
