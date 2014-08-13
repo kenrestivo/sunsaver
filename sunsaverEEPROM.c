@@ -106,13 +106,25 @@ float shift_float(uint16_t hi, uint16_t lo)
 }
 
 
-#define NUM_REGS 5
+#define NUM_REGS 15
 static const reg regs[NUM_REGS] = {
+	{ 0xE000, "EV_reg",  float_to_int, to_float     },
+	{ 0xE001, "EV_float",  float_to_int, to_float     },
+	{ 0xE002, "Et_float", straight_cast_int, straight_cast_float},
+	{ 0xE003, "Et_floatlb", straight_cast_int, straight_cast_float},
+	{ 0xE004, "EV_floatlb_trip", float_to_int, to_float},
+	{ 0xE005, "EV_float_cancel", float_to_int, to_float},
+	{ 0xE006, "Et_float_exit_cum", straight_cast_int, straight_cast_float},
+
+
+	{ 0xE00D, "EV_reg2",  float_to_int, to_float     },
 	{ 0xE00E, "EV_float2",  float_to_int, to_float     },
+	{ 0xE00F, "Et_float2", straight_cast_int, straight_cast_float},
 	{ 0xE010, "Et_floatlb2", straight_cast_int, straight_cast_float},
 	{ 0xE011, "EV_floatlb_trip2", float_to_int, to_float},
 	{ 0xE012, "EV_float_cancel2", float_to_int, to_float},
 	{ 0xE013, "Et_float_exit_cum2", straight_cast_int, straight_cast_float},
+
 	// TODO: the rest of the registers!
 	{ NO_SUCH_REG, "NO SUCH REG", NULL,  NULL     } // last one must always be the incorrect one
 };
@@ -157,6 +169,10 @@ void commit_options(modbus_param_t * mb_param)
 		printf("set returnd %d\n", ret);
 	}
 
+	printf("NOTE: you will need to physically power the unit off by disconnecting the battery, in order for the changes to take effect.\n\nWaiting for unit to reset and communications to return...\n");
+
+	sleep(10);
+	
 }
 
 
@@ -430,7 +446,7 @@ int main(int argc, char** argv)
 	int c;
 	char ** svp;
 	int i;
-	int set_args_count = 0;
+	int set_args_index = -1;
 	char set_args[MAX_SETS][MAX_STR];
 	char *device  =  NULL;
 	
@@ -454,10 +470,10 @@ int main(int argc, char** argv)
 			// thanks to http://stackoverflow.com/questions/3939157/c-getopt-multiple-value
 			optind--;
 			for(i = 0 ; optind < argc && *argv[optind] !=  '-'; optind++, i++){
-				set_args_count = i;
+				set_args_index = i; 
 				strcpy(set_args[i], argv[optind]);
 				if(debug > 0){
-					printf("multiopt: %s %s\n", argv[optind], set_args[i] );         
+					printf("getopts multiopt: %s %s\n", argv[optind], set_args[i] );         
 				}
 			}
 			break;
@@ -492,18 +508,18 @@ int main(int argc, char** argv)
 	}
 
 	if(debug > 0){
-		printf("We have %d set args to process...\n", set_args_count);
+		printf("We have %d set args to process...\n", set_args_index + 1);
 	}
 
 	
-	i = set_args_count;
-	while(i > 0){
+	i = set_args_index;
+	while(i >= 0){
 		printf("\nSetting values... %s\n", set_args[i]);
 		set_options(&mb_param, set_args[i]);
 		i--;
 	}
 
-	if(dry < 1 && set_args_count > 0){
+	if(dry < 1 && set_args_index >= 0){
 		commit_options(&mb_param);
 	}
 
