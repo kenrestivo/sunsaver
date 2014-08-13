@@ -32,7 +32,7 @@ test_set:: all
 	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_floatlb_trip2=12.7 
 	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float_cancel2=12.5 
 	./sunsaverEEPROM $(TEST_OPTIONS) -s Et_float_exit_cum2=1500 
-	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float2=13.4 
+	./sunsaverEEPROM $(TEST_OPTIONS) -s Et_float2=28800
 
 
 test_dry:: all
@@ -40,12 +40,11 @@ test_dry:: all
 	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_floatlb_trip2=12.7 
 	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float_cancel2=12.5 
 	./sunsaverEEPROM $(DRY_OPTIONS) -s Et_float_exit_cum2=1500 
-	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float2=13.4 
-
+	./sunsaverEEPROM $(DRY_OPTIONS) -s Et_float2=28800
 
 test_multiopts_dry:: all
-	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float2=13.40 EV_floatlb_trip2=12.7 
+	./sunsaverEEPROM $(DRY_OPTIONS) -s EV_float2=13.4  EV_floatlb_trip2=12.7  EV_float_cancel2=12.6  Et_float_exit_cum2=1500 Et_float2=28800
 
 test_multiopts:: all
-	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float2=13.40  EV_floatlb_trip2=12.7  EV_float_cancel2=12.5  Et_float_exit_cum2=1500  EV_float2=13.4 
+	./sunsaverEEPROM $(TEST_OPTIONS) -s  EV_float2=13.4  EV_floatlb_trip2=12.7  EV_float_cancel2=12.6  Et_float_exit_cum2=1500 Et_float2=28800
 

@@ -188,7 +188,7 @@ void set_options(modbus_param_t * mb_param, char * arg){
 	set_val = (*(r.from_display))(strtof(val, NULL));
 
 	if(debug > 0){
-		printf("%s is %s at 0x%04x, as int is %d\n", key, r.name, r.addr, set_val);
+		printf("arg %s is %s at 0x%04x, as int is %d\n", key, r.name, r.addr, set_val);
 	}						 
 
 	if(dry > 0 ){
@@ -201,7 +201,7 @@ void set_options(modbus_param_t * mb_param, char * arg){
 			printf("set returnd %d\n", ret);
 		}
 
-		sleep(2); // just to be sure
+		sleep(5); // just to be sure. Lots of lights flash on this thing when writing. Why?
 		
 	}
 
@@ -430,6 +430,7 @@ int main(int argc, char** argv)
 	int c;
 	char ** svp;
 	int i;
+	int set_args_count = 0;
 	char set_args[MAX_SETS][MAX_STR];
 	char *device  =  NULL;
 	
@@ -453,6 +454,7 @@ int main(int argc, char** argv)
 			// thanks to http://stackoverflow.com/questions/3939157/c-getopt-multiple-value
 			optind--;
 			for(i = 0 ; optind < argc && *argv[optind] !=  '-'; optind++, i++){
+				set_args_count = i;
 				strcpy(set_args[i], argv[optind]);
 				if(debug > 0){
 					printf("multiopt: %s %s\n", argv[optind], set_args[i] );         
@@ -489,14 +491,17 @@ int main(int argc, char** argv)
 		return(1);
 	}
 
-	
-	i=0; 
-	while(*set_args[i]){
-		printf("\nSetting values...\n");
-		set_options(&mb_param, set_args[i]);
-		i++;
+	if(debug > 0){
+		printf("We have %d set args to process...\n", set_args_count);
 	}
-	if(dry < 1 && *set_args[0]){
+
+	
+	for(i = 0; i <= set_args_count; i++){
+		printf("\nSetting values... %s\n", set_args[i]);
+		set_options(&mb_param, set_args[i]);
+	}
+
+	if(dry < 1 && set_args_count > 0){
 		commit_options(&mb_param);
 	}
 
