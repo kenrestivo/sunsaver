@@ -25,7 +25,7 @@ install: $(TARGETS)
 
 
 test:: all
-	./sunsaverEEPROM -h 
+	./sunsaverEEPROM $(TEST_OPTIONS)
 
 test_set:: all
 	./sunsaverEEPROM $(TEST_OPTIONS) -s EV_float2=13.40 
