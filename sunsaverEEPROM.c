@@ -54,7 +54,7 @@ typedef struct reg_t {
 
 void usage()
 {
-	printf("usage: [options] serial_port_path\noptions:\n\t-h help\n\t-d /path/to/device\n\t-v verbose (debug)\n\t-n dry run (no comms)\n\t-s reg_name=val another_reg_name=another_val, etc... (set registers)\n");
+	printf("usage: [options] serial_port_path\noptions:\n\t-h half duplex communication\n\t-d /path/to/device\n\t-v verbose (debug)\n\t-n dry run (no comms)\n\t-s reg_name=val another_reg_name=another_val, etc... (set registers)\n");
 
 }
 
@@ -197,7 +197,7 @@ void set_options(modbus_param_t * mb_param, char * arg){
 	if(NO_SUCH_REG == r.addr){
 		printf("Error, %s is not a register\n", key);
 		usage();
-		return;
+		exit(1);
 	}
 
 
@@ -454,6 +454,26 @@ int main(int argc, char** argv)
 
 	while( (c =  getopt(argc, argv, "hnvd:s:")) !=  -1) {
 		switch(c){
+		case 's':
+			/* NOTE IMPORTANT! This block MUST COME FIRST in the switch, before any opts,
+			   otherwise GCC or getopts or something gets the indexes all wrong */
+                        //  Thanks to http://stackoverflow.com/questions/3939157/c-getopt-multiple-value
+			// Special case the first arg
+			set_args_index = 0;
+			strcpy(set_args[0], optarg);
+			// Loop the rest
+			i=1;
+			while(optind < argc && *argv[optind] !=  '-'){
+				strcpy(set_args[i], argv[optind]);
+				if(debug > 0){
+					printf("getopts multiopt: %s %s\n", argv[optind], set_args[i] );
+				}
+				// Ugly but explicit
+				set_args_index++;
+				i++;
+				optind++;
+			}
+			break;
 		case 'h': 
 			half_duplex  =  1;
 			break;
@@ -466,17 +486,6 @@ int main(int argc, char** argv)
 		case 'd':
 			device = optarg;
 
-		case 's':
-			// thanks to http://stackoverflow.com/questions/3939157/c-getopt-multiple-value
-			optind--;
-			for(i = 0 ; optind < argc && *argv[optind] !=  '-'; optind++, i++){
-				set_args_index = i; 
-				strcpy(set_args[i], argv[optind]);
-				if(debug > 0){
-					printf("getopts multiopt: %s %s\n", argv[optind], set_args[i] );         
-				}
-			}
-			break;
 		default:
 			break;
 		}
