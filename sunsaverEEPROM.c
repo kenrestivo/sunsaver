@@ -496,9 +496,11 @@ int main(int argc, char** argv)
 	}
 
 	
-	for(i = 0; i <= set_args_count; i++){
+	i = set_args_count;
+	while(i > 0){
 		printf("\nSetting values... %s\n", set_args[i]);
 		set_options(&mb_param, set_args[i]);
+		i--;
 	}
 
 	if(dry < 1 && set_args_count > 0){
