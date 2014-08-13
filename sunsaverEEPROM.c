@@ -109,6 +109,7 @@ float shift_float(uint16_t hi, uint16_t lo)
 #define NUM_REGS 5
 static const reg regs[NUM_REGS] = {
 	{ 0xE00E, "EV_float2",  float_to_int, to_float     },
+	{ 0xE010, "Et_floatlb2", straight_cast_int, straight_cast_float},
 	{ 0xE011, "EV_floatlb_trip2", float_to_int, to_float},
 	{ 0xE012, "EV_float_cancel2", float_to_int, to_float},
 	{ 0xE013, "Et_float_exit_cum2", straight_cast_int, straight_cast_float},
