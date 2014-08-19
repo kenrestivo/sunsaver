@@ -24,8 +24,13 @@ install: $(TARGETS)
 	(for i in  $(TARGETS); do cp $$i /usr/local/bin/; done)
 
 
+
 test:: all
 	./sunsaverEEPROM $(TEST_OPTIONS)
+
+
+test_read: sunsaver
+	./sunsaver -h $(COMM)
 
 test_bad_opt_dry:: all
 	./sunsaverEEPROM $(DRY_OPTIONS) -s yeehaw=938293

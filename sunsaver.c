@@ -29,6 +29,12 @@
 
 #define SUNSAVERMPPT    0x01	/* MODBUS Address of the SunSaver MPPT */
 
+int c_to_f(int c)
+{
+	return (c * 9/5) + 32;
+
+}
+
 int main(int argc, char** argv)
 {
 	modbus_param_t mb_param;
@@ -61,10 +67,10 @@ int main(int argc, char** argv)
 	}
 
 
-    if(optind == argc){
-        printf("need to give serial port on command line\n");
-        return(1);
-    }
+	if(optind == argc){
+		printf("need to give serial port on command line\n");
+		return(1);
+	}
 
 	
 
@@ -113,16 +119,16 @@ int main(int argc, char** argv)
 	printf("adc_il_f = %.2f A\n",adc_il_f);
 	
 	T_hs=data[5];
-	printf("T_hs = %d °C\n",T_hs);
+	printf("T_hs = %d °C (%d °F)\n",T_hs, c_to_f(T_hs));
 	
 	T_batt=data[6];
-	printf("T_batt = %d °C\n",T_batt);
+	printf("T_batt = %d °C (%d °F)\n", T_batt, c_to_f(T_batt));
 	
 	T_amb=data[7];
-	printf("T_amb = %d °C\n",T_amb);
+	printf("T_amb = %d °C (%d °F)\n",T_amb, c_to_f(T_amb));
 	
 	T_rts=data[8];
-	printf("T_rts = %d °C\n",T_rts);
+	printf("T_rts = %d °C (%d °F)\n",T_rts, c_to_f(T_rts));
 	
 	charge_state=data[9];
 	switch (charge_state) {
